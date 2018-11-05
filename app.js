@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const eventRouter = require('./routes/event');
 const commentRouter = require('./routes/comment');
+const timeTableRouter = require('./routes/timetable');
 const app = express();
 
 const port = process.env.PORT || 3001;
@@ -13,7 +14,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/*', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -24,6 +25,7 @@ app.use('/*', (req, res, next) => {
 
 app.use('/event', eventRouter);
 app.use('/comment', commentRouter);
+app.use('/time-table', timeTableRouter);
 
 app.options('/*', function(req, res){
     res.header('Access-Control-Allow-Origin', '*');
