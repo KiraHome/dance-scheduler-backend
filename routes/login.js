@@ -18,8 +18,9 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const body = req.body;
-        await client.query('INSERT INTO credential(username, password, privilege, fb_reg) VALUES($1, $2, $3, $4) RETURNING *', [body.username, body.pass, 'USER', false]);
-        res.sendStatus(200);
+        await client.query('INSERT INTO credential(username, password, privilege, fb_reg) VALUES($1, $2, $3, $4) RETURNING *',
+            [body.userName, body.password, 'USER', false]);
+        res.send({basic: 'Basic ' + btoa(body.userName + ':' + body.password)});
     } catch (e) {
         console.log(e.stack);
         res.sendStatus(400);
