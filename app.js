@@ -10,8 +10,11 @@ const personalClassRouter = require('./routes/personal-class');
 const eventFlowRouter = require('./routes/event-flow');
 const app = express();
 
+const pollingService = require('./utils/polling');
+
 const port = process.env.PORT || 3001;
 
+pollingService.poll();
 
 app.use(logger('dev'));
 app.use(express.json());
