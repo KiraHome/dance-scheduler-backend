@@ -7,6 +7,7 @@ const commentRouter = require('./routes/comment');
 const timeTableRouter = require('./routes/timetable');
 const loginRouter = require('./routes/login');
 const personalClassRouter = require('./routes/personal-class');
+const eventFlowRouter = require('./routes/event-flow');
 const app = express();
 
 const port = process.env.PORT || 3001;
@@ -29,6 +30,7 @@ app.use('/event', eventRouter);
 app.use('/personal-class', personalClassRouter);
 app.use('/comment', commentRouter);
 app.use('/time-table', timeTableRouter);
+app.use('/event-flow', eventFlowRouter);
 app.use('/login', loginRouter);
 app.use('/register', loginRouter);
 
