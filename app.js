@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 app.use('/*', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Content-Length, X-Requested-With, Access-Control-Allow-Origin");
+    res.header("Access-Control-Allow-Headers", "*");
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
     next();
 });
@@ -29,12 +29,13 @@ app.use('/event', eventRouter);
 app.use('/personal-class', personalClassRouter);
 app.use('/comment', commentRouter);
 app.use('/time-table', timeTableRouter);
-app.use('/(^login$)|(^register$)', loginRouter);
+app.use('/login', loginRouter);
+app.use('/register', loginRouter);
 
 app.options('/*', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, Access-Control-Allow-Origin');
+    res.header('Access-Control-Allow-Headers', '*');
     res.sendStatus(200);
 });
 
