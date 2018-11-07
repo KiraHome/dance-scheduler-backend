@@ -5,7 +5,6 @@ const client = require('../database/handler');
 router.get('/', async (req, res) => {
     try {
         const result = await client.query('SELECT start, end_, title, color, id, cssclass, serial_id FROM personal_class');
-
         res.send(result.rows);
     } catch (e) {
         console.log(e.stack);

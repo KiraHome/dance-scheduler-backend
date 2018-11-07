@@ -6,12 +6,18 @@ const btoa = require('btoa');
 router.get('/', async (req, res) => {
     const username = req.get('username');
     const pass = req.get('pass');
-    const result = await client.query('SELECT username, password FROM credential');
 
-    if (result.rows.filter(user => user.username === username && user.password.toLowerCase() === pass.toLowerCase()).length > 0) {
-        res.send({basic: 'Basic ' + btoa(username + ':' + pass)});
-    } else {
-        res.sendStatus(403);
+    try {
+        const result = await client.query('SELECT username, password FROM credential');
+
+        if (result.rows.filter(user => user.username === username && user.password.toLowerCase() === pass.toLowerCase()).length > 0) {
+            res.send({basic: 'Basic ' + btoa(username + ':' + pass)});
+        } else {
+            res.sendStatus(403);
+        }
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(500);
     }
 });
 

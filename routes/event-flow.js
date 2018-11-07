@@ -3,9 +3,13 @@ const router = express.Router();
 const client = require('../database/handler');
 
 router.get('/', async (req, res) => {
-    const result = await client.query('SELECT source, priority, content, "timestamp", username FROM event_flow');
-
-    res.send(result.rows);
+    try {
+        const result = await client.query('SELECT source, priority, content, "timestamp", username FROM event_flow');
+        res.send(result.rows);
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(500);
+    }
 });
 
 router.post('/', async (req, res) => {
