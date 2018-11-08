@@ -36,18 +36,40 @@ router.post('/', async (req, res) => {
 router.post('/facebook', async (req, res) => {
     try {
         const body = req.body;
-        const user = await client.query('SELECT * FROM facebook WHERE name=$1', [body.name]);
+        const user = await client.query('SELECT * FROM credential WHERE username=$1', [body.name]);
         if (user.rows.length === 0) {
-            await client.query('INSERT INTO facebook(id, image, name, token, role) VALUES($1, $2, $3, $4, $5) RETURNING *',
-                [body.id, body.image, body.name, body.token, 'USER']);
+            await client.query('INSERT INTO credential(fb_id, image, username, token, privilege, fb_reg) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+                [body.id, body.image, body.name, body.token, 'USER', true]);
         } else {
-            await client.query('UPDATE facebook SET token=$1 WHERE name=$2',
+            await client.query('UPDATE credential SET token=$1 WHERE username=$2',
                 [body.token, body.name]);
         }
         res.send({token: body.token});
     } catch (e) {
         console.log(e.stack);
         res.sendStatus(400);
+    }
+});
+
+router.get('/is-admin', async (req, res) => {
+    const username = req.get('username');
+    const token = req.get('token');
+
+    if (!token.startsWith('Basic')) {
+        res.sendStatus(403);
+    }
+
+    try {
+        const result = await client.query('SELECT privilege FROM credential WHERE username=$1', [username]);
+
+        if (result.rows.length === 1 && result.rows[0].privilege === 'ADMIN') {
+            res.send({ok: 'OK'});
+        } else {
+            res.sendStatus(403);
+        }
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(500);
     }
 });
 
