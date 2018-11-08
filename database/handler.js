@@ -8,7 +8,11 @@ const client = new Client({
 });
 
 (async () => {
-    await client.connect();
+    try {
+        await client.connect();
+    } catch (e) {
+        console.log(e.stack);
+    }
 })();
 
 module.exports = client;

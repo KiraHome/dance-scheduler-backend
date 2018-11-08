@@ -36,10 +36,13 @@ router.post('/', async (req, res) => {
 router.post('/facebook', async (req, res) => {
     try {
         const body = req.body;
-        const user = await client.query('SELECT * FROM facebook WHERE name=$1 AND token=$2', [body.name, body.token]);
+        const user = await client.query('SELECT * FROM facebook WHERE name=$1', [body.name]);
         if (user.rows.length === 0) {
             await client.query('INSERT INTO facebook(id, image, name, token, role) VALUES($1, $2, $3, $4, $5) RETURNING *',
                 [body.id, body.image, body.name, body.token, 'USER']);
+        } else {
+            await client.query('UPDATE facebook SET token=$1 WHERE name=$2',
+                [body.token, body.name]);
         }
         res.send({token: body.token});
     } catch (e) {
