@@ -7,6 +7,7 @@ const timeTableRouter = require('./routes/timetable');
 const loginRouter = require('./routes/login');
 const personalClassRouter = require('./routes/personal-class');
 const eventFlowRouter = require('./routes/event-flow');
+const paymentRouter = require('./routes/payment');
 const app = express();
 const router = express.Router();
 
@@ -59,12 +60,13 @@ app.use('/time-table', timeTableRouter);
 app.use('/event-flow', eventFlowRouter);
 app.use('/login', loginRouter);
 app.use('/register', loginRouter);
+app.use('/payment', paymentRouter);
 
 app.options('/*', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', '*');
-    res.sendStatus(200);
+    res.send({ok: 'OK'});
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

@@ -16,7 +16,7 @@ router.put('/', async (req, res) => {
     try {
         const body = req.body;
         await client.query('INSERT INTO comment(name, comment, created_date, on_page) VALUES($1, $2, $3, $4) RETURNING *', [body.name, body.comment, body.created_date, body.onPage]);
-        res.sendStatus(200);
+        res.send({ok: 'OK'});
     } catch (e) {
         console.log(e.stack);
         res.sendStatus(400);

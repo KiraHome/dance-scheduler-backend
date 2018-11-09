@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
         const body = req.body;
         await client.query('INSERT INTO event_flow(source, priority, content, "timestamp", username) VALUES($1, $2, $3, $4, $5) RETURNING *',
             [body.source, body.priority, body.content, body.timestamp, body.username]);
-        res.sendStatus(200);
+        res.send({ok: 'OK'});
     } catch (e) {
         console.log(e.stack);
         res.sendStatus(400);
