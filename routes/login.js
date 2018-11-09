@@ -73,4 +73,14 @@ router.get('/is-admin', async (req, res) => {
     }
 });
 
+router.get('/fb-ids', async (req, res) => {
+    try {
+        const result = await client.query('SELECT username, fb_reg, fb_id FROM credential');
+        res.send(result.rows);
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(500);
+    }
+});
+
 module.exports = router;
