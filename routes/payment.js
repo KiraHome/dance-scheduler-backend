@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 router.put('/', async (req, res) => {
     try {
         const body = req.body;
-        await client.query('UPDATE payment SET lastpaid=$1 WHERE username=$2', [body.name, body.lastPaid]);
+        await client.query('UPDATE payment SET lastpaid=$1 WHERE username=$2', [body.lastPaid, body.username]);
         res.send({ok: 'OK'});
     } catch (e) {
         console.log(e.stack);
