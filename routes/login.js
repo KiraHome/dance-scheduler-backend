@@ -51,6 +51,21 @@ router.post('/facebook', async (req, res) => {
     }
 });
 
+router.put('/facebook', async (req, res) => {
+    try {
+        const body = req.body;
+        const userData = body.userData;
+        const username = body.username;
+        const userpass = body.userpass;
+
+        await client.query('UPDATE credential SET fb_reg=TRUE, token=$1, fb_id=$2 WHERE username=$3 AND password=$4', [userData.token, userData.id, username, userpass]);
+        res.send({token: body.token});
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(400);
+    }
+});
+
 router.get('/is-admin', async (req, res) => {
     const username = req.get('username');
     const token = req.get('token');

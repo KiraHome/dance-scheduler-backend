@@ -69,6 +69,6 @@ app.options('/*', function (req, res) {
     res.send({ok: 'OK'});
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Dance Scheduler Express app listening on port ${port}!`));
 
 module.exports = app;
