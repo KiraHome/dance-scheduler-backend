@@ -5,7 +5,7 @@ const mailSender = require('../utils/email-sender');
 
 router.get('/', async (req, res) => {
     try {
-        const result = await client.query('SELECT start, end_, title, color, id, cssclass, serial_id, recurring FROM personal_class');
+        const result = await client.query('SELECT start, end_, title, color, id, cssclass, serial_id, recurring, last_paid_class FROM personal_class');
         res.send(result.rows);
     } catch (e) {
         console.log(e.stack);
@@ -46,6 +46,25 @@ router.delete('/*', async (req, res) => {
         }
 
         res.send({serial_id: req.path.substring(1)});
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(400);
+    }
+});
+
+router.put('/pay', async (req, res) => {
+    try {
+        const body = req.body;
+        await client.query(
+            'UPDATE personal_class SET last_paid_class=$1 WHERE serial_id=$2',
+            [body.lastPaidClass, body.serial_id]
+        );
+
+        const start = new Date(body.start).toLocaleString('HU-hu');
+        const end = new Date(body.end).toLocaleString('HU-hu');
+        mailSender.sendMail('<pre>' + body.title + ' ' + start + '-tól ' + end + '-ig KIFIZETVE</pre>', body.title, 'preszl.daniel@gmail.com');
+
+        res.send({serial_id: body.serial_id});
     } catch (e) {
         console.log(e.stack);
         res.sendStatus(400);
