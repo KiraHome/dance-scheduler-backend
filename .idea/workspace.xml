@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a6f7dd2-0d7a-4e20-bccd-ade3395c6fc3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/routes/personal-class.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/personal-class.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/login.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,16 +14,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="personal-class.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="personal-class.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/personal-class.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-665">
-              <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+            <state relative-caret-position="415">
+              <caret line="67" column="17" lean-forward="true" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>credential</find>
+      <find>image</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -44,8 +60,8 @@
         <option value="$PROJECT_DIR$/routes/event-flow.js" />
         <option value="$PROJECT_DIR$/routes/payment.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/routes/login.js" />
         <option value="$PROJECT_DIR$/routes/personal-class.js" />
+        <option value="$PROJECT_DIR$/routes/login.js" />
       </list>
     </option>
   </component>
@@ -65,10 +81,10 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-3848" />
-    <option name="y" value="4" />
-    <option name="width" value="1936" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1858" />
     <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -180,14 +196,15 @@
       <workItem from="1541931757239" duration="603000" />
       <workItem from="1542011541925" duration="2791000" />
       <workItem from="1542093248347" duration="3808000" />
+      <workItem from="1542141869702" duration="2910000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70406000" />
+    <option name="totallyTimeSpent" value="73316000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3848" y="4" width="1936" height="1096" extended-state="7" />
+    <frame x="-8" y="-8" width="1858" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -206,6 +223,7 @@
       <window_info content_ui="combo" id="Project" order="0" weight="0.22135706" />
       <window_info anchor="bottom" id="Tail" order="7" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24972191" />
       <window_info id="UI Designer" order="2" />
@@ -218,7 +236,6 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -569,17 +586,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/login.js">
+    <entry file="file://$PROJECT_DIR$/routes/personal-class.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="58" selection-start-line="58" selection-end-line="59" />
+        <state relative-caret-position="415">
+          <caret line="67" column="17" lean-forward="true" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/personal-class.js">
+    <entry file="file://$PROJECT_DIR$/routes/login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-665">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+        <state relative-caret-position="270">
+          <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
         </state>
       </provider>
     </entry>

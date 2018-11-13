@@ -23,13 +23,19 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const body = req.body;
-        await client.query('INSERT INTO credential(username, password, privilege, fb_reg) VALUES($1, $2, $3, $4) RETURNING *',
-            [body.userName, body.password, 'USER', false]);
-        res.send({basic: 'Basic ' + btoa(body.userName + ':' + body.password)});
+        const result = await client.query('SELECT username FROM credential WHERE username=$1', [req.body.userName]);
+
+        if (result.rows.length > 0) {
+            res.sendStatus(400);
+        } else {
+            const body = req.body;
+            await client.query('INSERT INTO credential(username, password, privilege, fb_reg, email) VALUES($1, $2, $3, $4, $5) RETURNING *',
+                [body.userName, body.password, 'USER', false, body.email]);
+            res.send({basic: 'Basic ' + btoa(body.userName + ':' + body.password)});
+        }
     } catch (e) {
         console.log(e.stack);
-        res.sendStatus(400);
+        res.sendStatus(500);
     }
 });
 
@@ -38,8 +44,8 @@ router.post('/facebook', async (req, res) => {
         const body = req.body;
         const user = await client.query('SELECT * FROM credential WHERE username=$1', [body.name]);
         if (user.rows.length === 0) {
-            await client.query('INSERT INTO credential(fb_id, image, username, token, privilege, fb_reg) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
-                [body.id, body.image, body.name, body.token, 'USER', true]);
+            await client.query('INSERT INTO credential(fb_id, username, token, privilege, fb_reg) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+                [body.id, body.name, body.token, 'USER', true]);
         } else {
             await client.query('UPDATE credential SET token=$1 WHERE username=$2',
                 [body.token, body.name]);
