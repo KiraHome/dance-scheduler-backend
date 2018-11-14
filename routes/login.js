@@ -104,4 +104,13 @@ router.get('/fb-ids', async (req, res) => {
     }
 });
 
+router.get('/users', async (req, res) => {
+    try {
+        res.send((await client.query('SELECT username, fb_id, email from credential')).rows);
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(500);
+    }
+});
+
 module.exports = router;
