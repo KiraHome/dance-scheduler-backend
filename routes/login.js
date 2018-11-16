@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const client = require('../database/handler');
 const btoa = require('btoa');
+const mailSender = require('../utils/email-sender');
 
 router.get('/', async (req, res) => {
     const username = req.get('username');
@@ -31,6 +32,10 @@ router.post('/', async (req, res) => {
             const body = req.body;
             await client.query('INSERT INTO credential(username, password, privilege, fb_reg, email) VALUES($1, $2, $3, $4, $5) RETURNING *',
                 [body.userName, body.password, 'USER', false, body.email]);
+
+            if (body.email) {
+                mailSender.sendMail('<pre>Sikeres regisztráció ezen a néven: ' + body.userName + ', jelszó: ' + body.originalPass + '</pre>', 'Forma regisztráció', body.email);
+            }
             res.send({basic: 'Basic ' + btoa(body.userName + ':' + body.password)});
         }
     } catch (e) {
@@ -62,9 +67,9 @@ router.put('/facebook', async (req, res) => {
         const body = req.body;
         const userData = body.userData;
         const username = body.username;
-        const userpass = body.userpass;
 
-        await client.query('UPDATE credential SET fb_reg=TRUE, token=$1, fb_id=$2 WHERE username=$3 AND password=$4', [userData.token, userData.id, username, userpass]);
+        console.log(body);
+        await client.query('UPDATE credential SET fb_reg=TRUE, token=$1, fb_id=$2 WHERE username=$3', [userData.token, userData.id, username]);
         res.send({token: body.token});
     } catch (e) {
         console.log(e.stack);
