@@ -4,6 +4,27 @@ const client = require('../database/handler');
 const btoa = require('btoa');
 const mailSender = require('../utils/email-sender');
 
+
+router.get('/me', async (req, res) => {
+    try {
+        const result = await client.query('SELECT username, uuid FROM credential WHERE username=$1', [req.get('username')]);
+        res.send(result.rows[0]);
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(400);
+    }
+});
+
+router.delete('/me', async (req, res) => {
+    try {
+        await client.query('DELETE FROM credential WHERE uuid=$1 AND username=$2', [req.get('uuid'), req.get('username')]);
+        res.send({ok: 'OK'});
+    } catch (e) {
+        console.log(e.stack);
+        res.sendStatus(400);
+    }
+});
+
 router.get('/', async (req, res) => {
     const username = req.get('username');
     const pass = req.get('pass');
@@ -30,8 +51,8 @@ router.post('/', async (req, res) => {
             res.sendStatus(400);
         } else {
             const body = req.body;
-            await client.query('INSERT INTO credential(username, password, privilege, fb_reg, email) VALUES($1, $2, $3, $4, $5) RETURNING *',
-                [body.userName, body.password, 'USER', false, body.email]);
+            await client.query('INSERT INTO credential(username, password, privilege, fb_reg, email, uuid) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+                [body.userName, body.password, 'USER', false, body.email, body.uuid]);
 
             if (body.email) {
                 mailSender.sendMail('<pre>Sikeres regisztráció ezen a néven: ' + body.userName + ', jelszó: ' + body.originalPass + '</pre>', 'Forma regisztráció', body.email);
