@@ -31,9 +31,12 @@ router.get('/', async (req, res) => {
 
     try {
         const result = await client.query('SELECT username, password FROM credential');
+        const basic = 'Basic ' + btoa(username + ':' + pass);
+        await client.query('UPDATE credential SET token=$1 WHERE username=$2',
+            [basic, username]);
 
         if (result.rows.filter(user => user.username === username && user.password.toLowerCase() === pass.toLowerCase()).length > 0) {
-            res.send({basic: 'Basic ' + btoa(username + ':' + pass)});
+            res.send({basic: basic});
         } else {
             res.sendStatus(403);
         }
@@ -102,12 +105,8 @@ router.get('/is-admin', async (req, res) => {
     const username = req.get('username');
     const token = req.get('token');
 
-    if (!token.startsWith('Basic')) {
-        res.sendStatus(403);
-    }
-
     try {
-        const result = await client.query('SELECT privilege FROM credential WHERE username=$1', [username]);
+        const result = await client.query('SELECT privilege FROM credential WHERE username=$1 AND token=$2', [username, token]);
 
         if (result.rows.length === 1 && result.rows[0].privilege === 'ADMIN') {
             res.send({ok: 'OK'});

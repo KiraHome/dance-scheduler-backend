@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
 const eventRouter = require('./routes/event');
 const commentRouter = require('./routes/comment');
 const timeTableRouter = require('./routes/timetable');
@@ -8,6 +9,8 @@ const loginRouter = require('./routes/login');
 const personalClassRouter = require('./routes/personal-class');
 const eventFlowRouter = require('./routes/event-flow');
 const paymentRouter = require('./routes/payment');
+const accountingRouter = require('./routes/accounting');
+
 const app = express();
 const router = express.Router();
 
@@ -61,6 +64,7 @@ app.use('/event-flow', eventFlowRouter);
 app.use('/login', loginRouter);
 app.use('/register', loginRouter);
 app.use('/payment', paymentRouter);
+app.use('/accounting', accountingRouter);
 
 app.options('/*', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
