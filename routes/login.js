@@ -108,6 +108,7 @@ router.get('/is-admin', async (req, res) => {
     try {
         const result = await client.query('SELECT privilege FROM credential WHERE username=$1 AND token=$2', [username, token]);
 
+        console.log(result.rows);
         if (result.rows.length === 1 && result.rows[0].privilege === 'ADMIN') {
             res.send({ok: 'OK'});
         } else {
@@ -139,3 +140,24 @@ router.get('/users', async (req, res) => {
 });
 
 module.exports = router;
+
+/*CREATE TABLE public.facebook (
+    id character varying(63),
+    image character varying(330) NOT NULL,
+    name character varying(511) NOT NULL,
+    token character varying(2048) NOT NULL,
+    role character varying(63) NOT NULL,
+    serial_id bigint NOT NULL
+);
+ALTER TABLE public.facebook OWNER TO postgres;
+
+CREATE SEQUENCE public.facebook_serial_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE public.facebook_serial_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.facebook_serial_id_seq OWNED BY public.facebook.serial_id;
+
+*/

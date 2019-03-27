@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         const user = await client.query('SELECT privilege FROM credential WHERE username=$1 AND token=$2', [username, token]);
 
         console.log(user);
-        if (user.rows[0].privilege) {
+        if (user.rows.length > 0 && user.rows[0].privilege) {
             const result = await client.query('SELECT pay_timestamp, credit, type FROM accounting ORDER BY pay_timestamp ASC');
             res.send(result.rows);
         } else {

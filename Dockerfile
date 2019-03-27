@@ -1,17 +1,20 @@
 FROM node:8.12.0
 
-RUN mkdir /usr/src/app
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-COPY .npmrc /root/.npmrc
+COPY package.json /usr/src/app/
+COPY package-lock.json /usr/src/app/
+COPY .npmrc .npmrc
+COPY .npmrc /usr/src/app/.npmrc
 
-COPY package.json /usr/src/app/package.json
-COPY package-lock.json /usr/src/app/package-lock.json
-RUN npm i
+RUN npm install
 
-COPY . .
+RUN rm -f .npmrc
+
+COPY . /usr/src/app
 
 EXPOSE 3001
 

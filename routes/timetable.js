@@ -17,8 +17,8 @@ router.put('/', async (req, res) => {
     try {
         const body = req.body;
         const result = await client.query(
-            'INSERT INTO timetable(start, end_, title, color, id, cssclass, recurring) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-            [body.start, body.end, body.title, body.color, body.id, body.cssClass, false]
+            'INSERT INTO timetable(start, end_, title, color, id, cssclass, recurring, serial_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+            [body.start, body.end, body.title, body.color, body.id, body.cssClass, false, Math.floor(Math.random() * Math.floor(686876876))]
         );
 
         const start = new Date(body.start).toLocaleString('HU-hu');
