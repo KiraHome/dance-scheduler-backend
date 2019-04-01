@@ -12,6 +12,8 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
     "morgan": "~1.9.0",
     "nodemailer": "^4.6.8",
     "passport": "^0.4.0",

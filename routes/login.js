@@ -71,9 +71,9 @@ router.post('/', async (req, res) => {
 router.post('/facebook', async (req, res) => {
     try {
         const body = req.body;
-        const user = await client.query('SELECT * FROM credential WHERE username=$1', [body.name]);
+        const user = await client.query('SELECT * FROM credential WHERE fb_id=$1', [body.id]);
         if (user.rows.length === 0) {
-            await client.query('INSERT INTO credential(fb_id, username, token, privilege, fb_reg) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+            await client.query('INSERT INTO credential(fb_id, username, token, privilege, fb_reg) VALUES($1, $2, $3, $4, $5) RETURNING *',
                 [body.id, body.name, body.token, 'USER', true]);
         } else {
             await client.query('UPDATE credential SET token=$1 WHERE username=$2',

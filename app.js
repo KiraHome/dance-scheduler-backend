@@ -21,6 +21,14 @@ const Strategy = require('passport-facebook').Strategy;
 
 const port = process.env.PORT || 3001;
 
+const fs = require('fs');
+const https = require('https');
+const httpsOptions = {
+    key: fs.readFileSync('/etc/nginx/certs/server.com.key'),
+    cert: fs.readFileSync('/etc/nginx/certs/server.com.crt'),
+    ca: fs.readFileSync('/etc/nginx/certs/ca.crt')
+};
+
 pollingService.poll();
 
 passport.use(new Strategy({
@@ -73,6 +81,9 @@ app.options('/*', function (req, res) {
     res.send({ok: 'OK'});
 });
 
-app.listen(port, () => console.log(`Dance Scheduler Express app listening on port ${port}!`));
+// app.listen(port, () => console.log(`Dance Scheduler Express app listening on port ${port}!`));
+
+console.log(`Dance Scheduler Express app listening on port ${port}!`);
+https.createServer(httpsOptions, app).listen(port);
 
 module.exports = app;
